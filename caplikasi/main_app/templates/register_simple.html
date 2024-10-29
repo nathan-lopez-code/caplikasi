@@ -1,0 +1,73 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!-- Created by CodingLab |www.youtube.com/c/CodingLabYT-->
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src="{% static 'likasi_image2.jpg' %}" alt="welcome">
+        <div class="text">
+          <span class="text-1">Centre D'archive De patrimoine public de likasi <br> </span>
+          <span class="text-2">Enregistrez-vous</span>
+        </div>
+      </div>
+    </div>
+    <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">Enregistre</div>
+          <form action="{% url 'main_app:register_client' %}" method="post">
+              {% csrf_token %}
+            <div class="input-boxes">
+
+
+              <div class="input-box">
+                <i class="fas fa-user-secret"></i>
+                {{ form.username }}
+              </div>
+
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                {{ form.nom }}
+              </div>
+
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                {{ form.email }}
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                {{ form.password }}
+              </div>
+
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                {{ form.confirm_password }}
+              </div>
+              {% if errors %}
+                <div class="text"><i style="color: #8e0808; font-weight: bold">{{ errors }}</i></div>
+              {% endif %}
+              <div class="button input-box">
+                <input type="submit" value="Envoyez">
+              </div>
+              <div class="text sign-up-text">vous avez deja un compte ? <a href="{% url 'main_app:login_client' %}">Connectez-vous</a></div>
+            </div>
+        </form>
+      </div>
+    </div>
+    </div>
+  </div>
+</body>
+</html>

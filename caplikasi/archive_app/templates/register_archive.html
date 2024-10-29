@@ -1,0 +1,149 @@
+{% extends "dashboard.html" %}
+{% block nom_page %} Enregistre une nouvelle archive {% endblock %}
+{% block main_content %}
+
+        <div class="main-content-inner">
+                <form method="post" action="{% url 'archive_app:register_archive' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="row">
+                    {% if error %}
+                        <div class="col-lg-6 col-ml-12">
+                        <div class="row">
+                            <!-- Formulaire archive -->
+                            <div class="col-12 mt-5">
+                                <div class="card bg-danger" style="color: white">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Il semble qui ait une erreur</h4>
+                                            {% for e in error %}
+                                                <p style="color: white">{{ e }} : Ce champ est obligatoire</p>
+                                            {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- basic form end -->
+                            <!-- basic form start -->
+
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="col-lg-6 col-ml-12">
+                        <div class="row">
+                            <!-- Formulaire archive -->
+                            <div class="col-12 mt-5">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Information sur l'archive</h4>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formArchive.titre.label }}</label>
+                                               {{ formArchive.titre }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">{{ formArchive.historique.label }}</label>
+                                                {{ formArchive.historique }}
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- basic form end -->
+                            <!-- basic form start -->
+
+                        </div>
+                    </div>
+                    <!-- Patrimoine -->
+                     <div class="col-lg-6 col-ml-12">
+                        <div class="row">
+                            <!-- Formulaire archive -->
+                            <div class="col-12 mt-5">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Information sur le patrimoine a archiver</h4>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.numero.label }}</label>
+                                               {{ formPat.numero }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.avenue.label }}</label>
+                                               {{ formPat.avenue }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.commune.label }}</label>
+                                               {{ formPat.commune }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.annee_contruction.label }}</label>
+                                               {{ formPat.annee_contruction }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.etat_conservation.label }}</label>
+                                               {{ formPat.etat_conservation }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.affectation_actuel.label }}</label>
+                                               {{ formPat.affectation_actuel }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.architecte.label }}</label>
+                                               {{ formPat.architecte }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.observation.label }}</label>
+                                               {{ formPat.observation }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.image.label }}</label>
+                                               {{ formPat.image }}
+
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-ml-12">
+                        <div class="row">
+                            <!-- Formulaire archive -->
+                            <div class="col-12 mt-5">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Information sur les plans, televerser vos plans ici</h4>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formFichier.fichier.label }}</label>
+                                               {{ formFichier.fichier }}
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- basic form end -->
+                            <!-- basic form start -->
+
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-ml-12">
+                        <div class="row">
+                           <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4" style="width: 100%">Enregistrez</button>
+                        </div>
+                    </div>
+                    <
+                </div>
+                </form>
+            </div>
+{% endblock %}

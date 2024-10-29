@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+
+    <meta charset="UTF-8">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <title>CapLikasi</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static "css/fontawesome.css" %}">
+    <link rel="stylesheet" href="{% static "css/templatemo-plot-listing.css" %}">
+    <link rel="stylesheet" href="{% static "css/animated.css" %}">
+    <link rel="stylesheet" href="{% static "css/owl.css" %}">
+
+  </head>
+
+<body>
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav">
+            <!-- ***** Logo Start ***** -->
+            <a href="{% url 'main_app:home' %}" class="logo">
+            </a>
+            <!-- ***** Logo End ***** -->
+            <!-- ***** Menu Start ***** -->
+            <ul class="nav">
+              <li><a href="{% url "main_app:home" %}" class="active">Acceuil</a></li>
+              <li><a href="{% url 'main_app:tout_archive' %}">Archives</a></li>
+              <li><a href="#footer">Contact</a></li>
+            {% if user %}
+              <li><a href="{% url 'main_app:logout_client' %}"><i class="fa fa-unlock"></i>Se deconnecter</a></li> 
+             {% endif %}
+              {% if is_archive %}
+              <li><div class="main-white-button"><a href="{% url 'archive_app:dashboard' %}"><i class="fa fa-dashboard"></i> Administre </a></div></li> 
+              {% endif %}
+            </ul>        
+            <a class='menu-trigger'>
+                <span>Menu</span>
+            </a>
+            <!-- ***** Menu End ***** -->
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+{% block bannier %}
+  <div class="main-banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="top-text header-text">
+            <h6>Bienvenue au  Centre D'archive De patrimoine public de likasi</h6>
+            <h2>Cherchez, trouvez, découvrez.</h2>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <form id="search-form" name="gs" method="get" role="search" action="{% url 'main_app:recherche_archive' %}">
+            <div class="row">
+              <div class="col-lg-3 align-self-center">
+                  <fieldset>
+                      {{ search_form.commune }}
+                  </fieldset>
+              </div>
+              <div class="col-lg-3 align-self-center">
+                  <fieldset>
+                      {{ search_form.titre }}
+                  </fieldset>
+              </div>
+              <div class="col-lg-3 align-self-center">
+                  <fieldset>
+                      {{ search_form.type }}
+                  </fieldset>
+              </div>
+              <div class="col-lg-3">                        
+                  <fieldset>
+                      <button class="main-button"><i class="fa fa-search"></i> Rechercher </button>
+                  </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block main_content %}
+  <div class="popular-categories">
+    <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+          <div class="section-heading">
+            <h2>Bienvenue au centre d'archivage de patrimoine publique de lubumbashi</h2>
+            <h6>Notre objectif</h6>
+            <p>
+                Notre objectif est de préserver et valoriser le riche héritage architectural et culturel de notre ville grâce à des techniques modernes d'inventaire et d'archivage numérique.
+
+Cette application a été conçue pour préserver et valoriser le patrimoine architectural de notre ville. Grâce à notre base de données numérique, vous pourrez découvrir l'histoire et les caractéristiques de chacun des bâtiments publics de Likasi, du plus ancien au plus récent.
+
+Accéder facilement aux informations détaillées sur les bâtiments publics (plans, photos, date de construction, style architectural, etc.) Effectuer des recherches avancées par nom, type de bâtiment ou localisation
+
+Visualiser l'évolution de ces bâtiments à travers le temps grâce aux archives numérisées Signaler toute information manquante ou erronée afin d'améliorer continuellement notre base de données.
+
+Notre objectif est de faire de cette application un outil incontournable pour tous ceux qui souhaitent mieux connaître et préserver le patrimoine architectural de Likasi. Explorez dès maintenant notre riche histoire bâtie !
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="section-heading">
+            <h2>Regroupe de patrimoine</h2>
+            <h6>regroupe du plus ancien au nouveau</h6>
+          </div>
+        </div>
+        <div  class="col-lg-12">
+          <div class="naccs" style="padding: 25px 0">
+            <div class="grid">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="menu">
+                    <div class="first-thumb active">
+                      <div class="thumb">
+                        <span class="icon"><img src="{% static 'images/search-icon-01.png' %}" alt=""></span>
+                        Anciens
+                      </div>
+                    </div>
+                    <div>
+                      <div class="thumb">                 
+                        <span class="icon"><img src="{% static 'images/search-icon-02.png' %}" alt=""></span>
+                        Nouveaux
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-lg-9 align-self-center">
+                  <ul class="nacc">
+                    <li class="active">
+                      <div>
+                        <div class="thumb">
+                          <div class="row">
+                            <div class="col-lg-5 align-self-center">
+                              <div class="left-text">
+                                <h4>Edifices anciennement construits</h4>
+                                 <p>Découvrez les édifices qui ont marqué notre paysage urbain. Au XXe siècle, ces constructions témoignent de l'évolution de l'architecture et de la société. Explorez leur histoire, leurs secrets et leur influence sur notre patrimoine.</p>
+
+                                <div class="main-white-button"><a href="#"><i class="fa fa-eye"></i> Decouvrez plus</a></div>
+                              </div>
+                            </div>
+                            <div class="col-lg-7 align-self-center">
+                              <div class="right-image">
+                                <img style="height: 200px" src="{% static 'images/anciennement_construit.jpg' %}" alt="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div>
+                        <div class="thumb">
+                          <div class="row">
+                            <div class="col-lg-5 align-self-center">
+                              <div class="left-text">
+                                <h4>Edifice nouvellement construits</h4>
+                                <p>Un héritage pour les générations futures enraciné dans l'histoire de Likasi, ces nouveaux édifices s'inscrient dans une tradition architecturale tout en répondant aux défis du XXIe siècle. Son architecture, à la fois classique et moderne, témoigne de l'évolution des pratiques constructives.</p>
+                                <div class="main-white-button"><a href="#"><i class="fa fa-eye"></i> Explore More</a></div>
+                              </div>
+                            </div>
+                            <div class="col-lg-7 align-self-center">
+                              <div class="right-image">
+                                <img style="height: 200px" src="{% static 'images/nouvellement_contruit.jpg' %}" alt="Foods on the table">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>          
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="recent-listing">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-heading">
+            <h2>Patrimoine archivé récemment</h2>
+            <h6>Decouvrez</h6>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="owl-carousel owl-listing">
+            {% for archive in recent_archives  %}
+                {% include "archive_card.html" %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+  {% include 'footer_main.html' %}
+
+
+  <!-- Scripts -->
+  <script src = "{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src = "{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/owl-carousel.js' %}"></script>
+  <script src="{% static 'js/animation.js' %}"></script>
+  <script src="{% static 'js/imagesloaded.js' %}"></script>
+  <script src="{% static 'js/custom.js' %}"></script>
+
+</body>
+
+</html>

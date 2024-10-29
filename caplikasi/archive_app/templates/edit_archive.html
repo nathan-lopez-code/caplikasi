@@ -1,0 +1,151 @@
+>{% extends "dashboard.html" %}
+{% block nom_page %} Modification de l'archive {{ archive.titre }}{% endblock %}
+{% block main_content %}
+
+        <div class="main-content-inner">
+                <form method="post" action="{% url 'archive_app:register_archive' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="row">
+                    {% if error %}
+                        <div class="col-lg-6 col-ml-12">
+                        <div class="row">
+                            <!-- Formulaire archive -->
+                            <div class="col-12 mt-5">
+                                <div class="card bg-danger" style="color: white">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Il semble qui ait une erreur</h4>
+                                            {% for e in error %}
+                                                <p style="color: white">{{ e }} : Ce champ est obligatoire</p>
+                                            {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- basic form end -->
+                            <!-- basic form start -->
+
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="col-lg-6 col-ml-12">
+                        <div class="row">
+                            <!-- Formulaire archive -->
+                            <div class="col-12 mt-5">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Information sur l'archive</h4>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formArchive.titre.label }} ~ courante valeur : {{ archive.titre }}</label>
+                                               {{ formArchive.titre }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">{{ formArchive.historique.label }} ~ courante valeur : {{ archive.titre }}</label>
+                                                {{ formArchive.historique }}
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- basic form end -->
+                            <!-- basic form start -->
+
+                        </div>
+                    </div>
+                    <!-- Patrimoine -->
+                     <div class="col-lg-6 col-ml-12">
+                        <div class="row">
+                            <!-- Formulaire archive -->
+                            <div class="col-12 mt-5">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Information sur le patrimoine a archiver</h4>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.numero.label }} ~ courante valeur : {{ patrimoine.numero }}</label>
+                                               {{ formPat.numero }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.avenue.label }} ~ courante valeur : {{ patrimoine.avenue }}</label>
+                                               {{ formPat.avenue }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.commune.label }} ~ courante valeur : {{ patrimoine.commune }}</label>
+                                               {{ formPat.commune }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.annee_contruction.label }} ~ courante valeur : {{ patrimoine.annee_construction }}</label>
+                                               {{ formPat.annee_contruction }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.etat_conservation.label }} ~ courante valeur : {{ patrimoine.etat_conservation }}</label>
+                                               {{ formPat.etat_conservation }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.affectation_actuel.label }} ~ courante valeur : {{ patrimoine.affectation_actuel }}</label>
+                                               {{ formPat.affectation_actuel }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.architecte.label }} ~ ~ courante valeur : {{ patrimoine.architecte }}</label>
+                                               {{ formPat.architecte }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.observation.label }} ~ courante valeur : {{ patrimoine.observation }}</label>
+                                               {{ formPat.observation }}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.image.label }} ~ courante valeur : {{ patrimoine.image.name }}</label>
+                                               {{ formPat.image }}
+
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-ml-12">
+                        <div class="row">
+                            <!-- Formulaire archive -->
+                            <div class="col-12 mt-5">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Information sur les plans, televerser vos plans ici</h4>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formFichier.fichier.label }} ~ {% for f in fichiers %} {{ f.fichier.name }} {% endfor %}
+
+                                               {{ formFichier.fichier }}
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- basic form end -->
+                            <!-- basic form start -->
+
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-ml-12">
+                        <div class="row" style="display: flex; justify-content: space-between">
+                           <a  href="{% url 'archive_app:delete_archive' pk=archive.id %}" style="width: 40%" class=" bg-danger btn btn-primary mt-4 pr-4 pl-4">supprimer</a>
+                           <button type="submit" style="width: 40%" class=" btn btn-primary mt-4 pr-4 pl-4">Enregistrez</button>
+                        </div>
+                    </div>
+
+                </div>
+                </form>
+            </div>
+{% endblock %}

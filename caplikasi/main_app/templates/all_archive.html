@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main_content %}
+  <div class="listing-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="naccs">
+            <div class="grid">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="menu">
+                    <div class="first-thumb active">
+                      <div class="thumb">
+                        <span class="icon"><img src="{% static 'images/search-icon-01.png' %}" alt=""></span>
+                        Ancien
+                      </div>
+                    </div>
+                    <div>
+                      <div class="thumb">                 
+                        <span class="icon"><img src="{% static 'images/search-icon-02.png' %}" alt=""></span>
+                        nouveau
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-lg-9">
+                  <ul class="nacc">
+                    <li class="active">
+                      <div>
+                        <div class="col-lg-12">
+                          <div class="owl-carousel owl-listing">
+
+                                <div class="item">
+                                  <div class="row">
+                                    {% for aa in archive_a %}
+                                    <div class="col-lg-12">
+                                      <div class="listing-item">
+                                        <div class="left-image">
+                                          <a href="#"><img src="{{ aa.patrimoine.image.url }}" alt=""></a>
+                                          <div class="hover-content">
+                                            <div class="main-white-button">
+                                              <a href="{{ aa.get_absolute_url }}"><i class="fa fa-eye"></i> Voir le detail</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-content align-self-center">
+                                          <h4>{{ aa.titre }}</h4>
+                                          <h6>Annee :{{ aa.patrimoine.annee_construction }}</h6>
+                                          <span class="details">No. {{ aa.patrimoine.numero }} av. {{ aa.patrimoine.avenue }}</span>
+                                          <span class="price"><div class="icon"><img src="{% static 'images/listing-icon-heading.png' %}" alt=""></div> Etat de conservation : {{ aa.patrimoine.etat_conservation }}</span>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {% empty %}
+                                      <p>Aucune information pour le moment</p>
+                                    {% endfor %}
+                                  </div>
+                                </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <!-- second category listing of items -->
+                    <li>
+                      <div>
+                        <div class="col-lg-12">
+                          <div class="owl-carousel owl-listing">
+                                <div class="item">
+                                  <div class="row">
+                                    {% for an in archive_m %}
+                                    <div class="col-lg-12">
+                                      <div class="listing-item">
+                                        <div class="left-image">
+                                          <a href="#"><img src="{{ an.patrimoine.image.url }}" alt=""></a>
+                                          <div class="hover-content">
+                                            <div class="main-white-button">
+                                              <a href="{{ an.get_absolute_url }}"><i class="fa fa-eye"></i> Voir le detail</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="right-content align-self-center">
+                                          <h4>{{ an.titre }}</h4>
+                                          <h6>Annee :{{ an.patrimoine.annee_construction }}</h6>
+                                          <span class="details">No. {{ an.patrimoine.numero }} av. {{ an.patrimoine.avenue }}</span>
+                                          <span class="price"><div class="icon"><img src="{% static 'images/listing-icon-heading.png' %}" alt=""></div> Etat de conservation : {{ an.patrimoine.etat_conservation }}</span>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {% empty %}
+                                      <p>Aucune information pour le moment</p>
+                                    {% endfor %}
+                                  </div>
+                                </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  
+                </div>          
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>    
+    
+{% endblock %}

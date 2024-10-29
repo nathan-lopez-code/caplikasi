@@ -1,0 +1,27 @@
+{% load static %}
+
+
+<div class="item">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="listing-item">
+        <div class="left-image">
+          <a href="#"><img src="{% if archive.patrimoine.image %}{{ archive.patrimoine.image.url }}{% else %}{% static 'images/no-image.jpg' %}{% endif %}" alt=""></a>
+        </div>
+        <div class="right-content align-self-center">
+          <a href="{{ archive.get_absolute_url }}"><h4>{{ archive.titre }}</h4></a>
+          <h6>annee de construction : {{ archive.patrimoine.annee_construction }}</h6>
+          <ul class="rate">
+            <li><i class="fa fa-map-marker"></i></li>
+            <li>{{ archive.patrimoine.commune }}</li>
+          </ul>
+          <span class="price"><div class="icon"><img src="{% static 'images/listing-icon-heading.png' %}" alt=""></div> Etat de conservation : {{ archive.patrimoine.etat_conservation }}</span>
+          <span class="details">No. {{ archive.patrimoine.numero }} av. {{ archive.patrimoine.avenue }}</span>
+          <div class="main-white-button">
+            <a href="{{ archive.get_absolute_url }}"><i class="fa fa-eye"></i> Decouvrir</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

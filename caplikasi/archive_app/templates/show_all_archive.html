@@ -1,0 +1,46 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% load string_splinte %}
+
+
+{% block nom_page %} modifier ou Supprimer une arcive {% endblock %}
+
+{% block main_content %}
+
+                <div class="row mt-5">
+                    <!-- latest news area start -->
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title">Archive enregistrer</h4>
+                                {% for ma in archives %}
+                                <div class="letest-news mt-5">
+
+                                    <div class="single-post mb-xs-40 mb-sm-40">
+                                        <div class="lts-thumb">
+                                            <img src="{{ ma.patrimoine.image.url }}" alt="post thumb">
+                                        </div>
+                                        <div class="lts-content">
+                                            <span>{{ ma.date_creation }}</span>
+                                            <h2><a href="{{ ma.get_absolute_url }}">{{ ma.titre }}</a></h2>
+                                            <p>{% string_splint ma.historique %}</p>
+                                            <div class="mt-3 lts-content">
+                                                <a class="btn btn-primary p-2" href="{% url 'archive_app:edit_archive' pk=ma.id %}"><i class="fa fa-edit"> Modifier</i></a>
+                                                <a class="btn btn-danger p-2" href="{% url 'archive_app:delete_archive' pk=ma.id %}"><i class="fa fa-trash"> Supprimer</i></a>
+                                                <a class="btn btn-dark p-2" href="{{ ma.get_absolute_url }}"><i class="fa fa-eye"> afficher</i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% empty %}
+                                    <p>Vous n'avez ajouter aucune archive pour le moment</p>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- exchange area end -->
+                </div>
+{% endblock %}

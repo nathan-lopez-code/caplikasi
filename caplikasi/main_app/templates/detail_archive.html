@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+{% block bannier %}
+
+
+  <div class="page-heading">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="top-text header-text">
+            <h6>{{ archive.date_creation }}</h6>
+            <h2>{{ archive.titre }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block main_content %}
+
+  <div class="category-post">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="naccs">
+            <div class="grid">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="nacc">
+                    <li class="active">
+                      <div>
+                        <div class="thumb">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <div class="top-content mt-3 align-items-center shadow">
+                               <img class="w-100 " src="{{ archive.patrimoine.image.url }}">
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="description">
+                                <div class="row">
+                                  <div class="col-lg-9">
+                                    <h4>historique</h4>
+                                    <p>{{ archive.historique }}</p>
+                                  </div>
+                                  <div class="col-lg-3">
+                                    <div class="text-icon">
+                                      <h4><i class="fa fa-map-marker"></i> Localisation</h4>
+                                    </div>
+                                    <p class="list-item">numero : {{ archive.patrimoine.numero }}<br>
+                                        Avenue : {{ archive.patrimoine.avenue }}<br>Commune : {{ archive.patrimoine.commune }}<br> Annee de construction : {{ archive.patrimoine.annee_construction }}<br> Architecte : {{ archive.patrimoine.architecte }}<br> Etat de conservation : {{ archive.patrimoine.etat_conservation }}<br>Affectation actuel : {{ archive.patrimoine.affectation_actuel }}<br>Observation : {{ archive.patrimoine.observation }}</p>
+
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="general-info">
+                               <h4>Decouvrez le plan du batiment</h4>
+                                <div class="row align-items-center" style="display: flex; justify-content: center">
+
+                                  {% for file in fichiers_plan %}
+                                      <div class="col-lg-4">
+                                          <img src="{{ file.fichier.url }}" alt="image">
+                                      </div>
+                                  {% endfor %}
+                                </div>
+                              </div>
+                            </div>
+                            {% if is_archiviste %}
+                            <div class="col-lg-12">
+                              <div class="top-content">
+                                <div class="row">
+                                  <h4>Vous disposez d'un compte administrateur</h4>
+                                  <div class="col-lg-6">
+                                    <div class="top-icon">
+                                      <span class="icon"><img src="{% static 'images/avatar_admin.png' %}" alt=""><h4>{{ user.username }}</h4></span>
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                    <div class="main-white-button">
+                                      <a href="{% url 'archive_app:edit_archive' pk=archive.id %}"><i class="fa fa-edit"></i> Vous pouvez modifier l'archive</a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

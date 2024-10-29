@@ -1,0 +1,361 @@
+{% load static %}
+{% load string_splinte %}
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Administration caplikasi</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/metisMenu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}">
+    <!-- amchart css -->
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css' %}" type="text/css" media="all" />
+    <!-- others css -->
+    <link rel="stylesheet" href="{% static 'css/typography.css' %}">
+    <link rel="stylesheet" href="{% static 'css/default-css.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <!-- modernizr css -->
+    <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+</head>
+
+<body>
+
+    <!-- preloader area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+    <div class="page-container">
+        <!-- sidebar menu area start -->
+        <div class="sidebar-menu">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <a href="{% url 'archive_app:dashboard' %}"><img src="{% static 'images/white-logo.png' %}" alt="logo"></a>
+                </div>
+            </div>
+            <div class="main-menu">
+                <div class="menu-inner">
+                    <nav>
+                        <ul class="metismenu" id="menu">
+                            <li class="active">
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Gestion d'archive</span></a>
+                                <ul class="collapse">
+                                    <li><a href="{% url 'archive_app:register_archive' %}">Enregistre une archive</a></li>
+                                    <li><a href="{% url 'archive_app:show_archive' %}">Modifier ou supprimer une archive</a></li>
+                                    <li><a href="{% url 'main_app:logout_client' %}">Se deconnecter</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- sidebar menu area end -->
+        <!-- main content area start -->
+
+        <div class="main-content">
+            <!-- header area start -->
+            <div class="header-area">
+                <div class="row align-items-center">
+                    <!-- nav and search button -->
+                    <div class="col-md-6 col-sm-8 clearfix">
+                        <div class="nav-btn pull-left">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <!-- profile info & task notification -->
+                    <div class="col-md-6 col-sm-4 clearfix">
+                        <ul class="notification-area pull-right">
+                            <li id="full-view"><i class="ti-fullscreen"></i></li>
+                            <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                            <li class="settings-btn">
+                                <i class="ti-world"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- header area end -->
+            <!-- page title area start -->
+            <div class="page-title-area">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <div class="breadcrumbs-area clearfix">
+                            <h4 class="page-title pull-left">Interface d'administration</h4>
+                            <ul class="breadcrumbs pull-left">
+                                <li><a href="{% url 'archive_app:dashboard' %}">Accueil</a></li>
+                                <li><span>{% block nom_page %} {{ nom_page }} {% endblock %}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 clearfix">
+                        <div class="user-profile pull-right">
+                            <img class="avatar user-thumb" src="{% static 'images/author/avatar.png' %}" alt="avatar">
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{ user.first_name }} {{ user.username }} <i class="fa fa-angle-down"></i></h4>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'main_app:logout_client' %}">Se deconnecter</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- page title area end -->
+            {% block main_content %}
+            <div class="main-content-inner">
+
+                <!-- row area start -->
+                <div class="row">
+
+                    <div class="col-lg-12 mt-sm-30 mt-xs-30">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-sm-flex justify-content-between align-items-center">
+                                    <h4 class="header-title">Archive Recemment ajouter</h4>
+                                    <div class="trd-history-tabs">
+                                        <ul class="nav" role="tablist">
+                                            <li>
+                                                <a class="active" data-toggle="tab" href="#buy_order" role="tab">Ancienne edifice</a>
+                                            </li>
+                                            <li>
+                                                <a data-toggle="tab" href="#sell_order" role="tab">Nouveau edifice</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="trad-history mt-4">
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="buy_order" role="tabpanel">
+                                            <div class="table-responsive">
+                                                <table class="dbkit-table">
+                                                    <tr class="heading-td">
+                                                        <td>Titre</td>
+                                                        <td>affectation</td>
+                                                        <td>Etat</td>
+                                                        <td>annee de construction</td>
+                                                        <td>observation</td>
+                                                    </tr>
+                                                    {% for an in archive_ancien %}
+                                                    <tr>
+                                                        <td><a href="{{ an.get_absolute_url }}">{{ an.titre }}</a></td>
+                                                        <td>{{ an.patrimoine.affectation_actuel }}</td>
+                                                        <td>{{ an.patrimoine.etat_conservation }}</td>
+                                                        <td>{{ an.patrimoine.annee_construction }}</td>
+                                                        <td>{{ an.patrimoine.observation }}</td>
+                                                    </tr>
+                                                    {% empty %}
+                                                    <p style="font-weight: bold; color: red">Aucunne donnee pour l'instant</p>
+                                                    {% endfor %}
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="sell_order" role="tabpanel">
+                                            <div class="table-responsive">
+                                                <table class="dbkit-table">
+                                                    <tr class="heading-td">
+                                                        <td>Titre</td>
+                                                        <td>affectation</td>
+                                                        <td>Etat</td>
+                                                        <td>annee de construction</td>
+                                                        <td>observation</td>
+                                                    </tr>
+                                                    {% for aa in archive_nouveau %}
+                                                    <tr>
+                                                        <td><a class="link-info" href="{{ aa.get_absolute_url }}">{{ aa.titre }}</a></td>
+                                                        <td>{{ aa.patrimoine.affectation_actuel }}</td>
+                                                        <td>{{ aa.patrimoine.etat_conservation }}</td>
+                                                        <td>{{ aa.patrimoine.annee_construction }}</td>
+                                                        <td>{{ aa.patrimoine.observation }}</td>
+                                                    </tr>
+                                                    {% empty %}
+                                                    <p style="font-weight: bold; color: #2c0808">Aucunne donnee pour l'instant</p>
+                                                    {% endfor %}
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- trading history area end -->
+                </div>
+                <!-- row area end -->
+                <div class="row mt-5">
+                    <!-- latest news area start -->
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title">Archive que j'ai ajoute</h4>
+                                <div class="letest-news mt-5">
+                                    {% for ma in m_archive %}
+                                    <div class="single-post mb-xs-40 mb-sm-40">
+                                        <div class="lts-thumb">
+                                            <img src="{{ ma.patrimoine.image.url }}" alt="post thumb">
+                                        </div>
+                                        <div class="lts-content">
+                                            <span>{{ ma.date_creation }}</span>
+                                            <h2><a href="{{ ma.get_absolute_url }}">{{ ma.titre }}</a></h2>
+                                            <p>{% string_splint ma.historique %}</p>
+                                        </div>
+                                    </div>
+                                    {% empty %}
+                                    <p>Vous n'avez ajouter aucune archive pour le moment</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title">Liste des archiviste</h4>
+                                <div class="cripto-live mt-5">
+                                    <ul>
+                                        {% for a in list_archiviste %}
+                                        <li>
+                                            <div class="icon b">b</div> Bitcoin<span><i class="fa fa-long-arrow-up"></i>$876909.00</span></li>
+                                        {% empty %}
+                                            <li><p>Vous etes le seul archiviste pour le moment</p></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- exchange area end -->
+                </div>
+                <!-- row area start-->
+            </div>
+            {% endblock %}
+
+        </div>
+        <!-- main content area end -->
+        <!-- footer area start-->
+        <footer>
+            <div class="footer-area">
+                <p>© Copyright 2024. All right reserved. Template by Nathan lopez.</p>
+            </div>
+        </footer>
+        <!-- footer area end-->
+    </div>
+    <!-- page container area end -->
+    <!-- offset area start -->
+    <div class="offset-area">
+        <div class="offset-close"><i class="ti-close"></i></div>
+        <ul class="nav offset-menu-tab">
+            <li><a class="active" data-toggle="tab" href="#activity">Activity</a></li>
+        </ul>
+        <div class="offset-content tab-content">
+            <div id="activity" class="tab-pane fade in show active">
+                <div class="recent-activity">
+                    <div class="timeline-task">
+                        <div class="icon bg1">
+                            <i class="fa fa-file-word-o"></i>
+                        </div>
+                        <div class="tm-title">
+                            <h4><a href="{% url 'main_app:home' %}">Acceder au site principal</a></h4>
+                        </div>
+                        <p>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <div id="settings" class="tab-pane fade">
+                <div class="offset-settings">
+                    <h4>General Settings</h4>
+                    <div class="settings-list">
+                        <div class="s-settings">
+                            <div class="s-sw-title">
+                                <h5>Notifications</h5>
+                                <div class="s-swtich">
+                                    <input type="checkbox" id="switch1" />
+                                    <label for="switch1">Toggle</label>
+                                </div>
+                            </div>
+                            <p>Keep it 'On' When you want to get all the notification.</p>
+                        </div>
+                        <div class="s-settings">
+                            <div class="s-sw-title">
+                                <h5>Show recent activity</h5>
+                                <div class="s-swtich">
+                                    <input type="checkbox" id="switch2" />
+                                    <label for="switch2">Toggle</label>
+                                </div>
+                            </div>
+                            <p>The for attribute is necessary to bind our custom checkbox with the input.</p>
+                        </div>
+                        <div class="s-settings">
+                            <div class="s-sw-title">
+                                <h5>Show your emails</h5>
+                                <div class="s-swtich">
+                                    <input type="checkbox" id="switch3" />
+                                    <label for="switch3">Toggle</label>
+                                </div>
+                            </div>
+                            <p>Show email so that easily find you.</p>
+                        </div>
+                        <div class="s-settings">
+                            <div class="s-sw-title">
+                                <h5>Show Task statistics</h5>
+                                <div class="s-swtich">
+                                    <input type="checkbox" id="switch4" />
+                                    <label for="switch4">Toggle</label>
+                                </div>
+                            </div>
+                            <p>The for attribute is necessary to bind our custom checkbox with the input.</p>
+                        </div>
+                        <div class="s-settings">
+                            <div class="s-sw-title">
+                                <h5>Notifications</h5>
+                                <div class="s-swtich">
+                                    <input type="checkbox" id="switch5" />
+                                    <label for="switch5">Toggle</label>
+                                </div>
+                            </div>
+                            <p>Use checkboxes when looking for yes or no answers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- offset area end -->
+    <!-- jquery latest version -->
+    <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+    <!-- bootstrap 4 js -->
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/metisMenu.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.min.js' %}"></script>
+
+    <!-- start chart js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js' %}"></script>
+    <!-- start highcharts js -->
+    <script src="https://code.highcharts.com/highcharts.js' %}"></script>
+    <!-- start zingchart js -->
+    <script src="https://cdn.zingchart.com/zingchart.min.js' %}"></script>
+    <script>
+    </script>
+    <!-- all line chart activation -->
+    <script src="{% static 'js/line-chart.js' %}"></script>
+    <!-- all pie chart -->
+    <script src="{% static 'js/pie-chart.js' %}"></script>
+    <!-- others plugins -->
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+
+</html>
