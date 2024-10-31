@@ -38,7 +38,12 @@ def login_client(request):
             username = request.POST['username']
             password = request.POST['password']
 
-            user = get_user_model().objects.get(username=username, password=password)
+            try:
+
+                user = get_user_model().objects.get(username=username, password=password)
+            except:
+                user = None
+
             if user is not None:
                 login(request, user)
                 if Client.objects.filter(user=user).exists():
@@ -70,18 +75,33 @@ def register_client(request):
 
             if compare_password(password, confirmation):
 
-                # creation d'un nouvel utilisateur
-                user = get_user_model().objects.create_user(
-                    username=username, first_name=nom, email=email, password=password)
-                user.save()
-                # connection a la table client
-                Client.objects.create(user=user)
-                user = authenticate(request, username=username, password=password, email=email)
-                if user is not None:
-                    login(request, user)
-                    return redirect("main_app:home")
+                try:
+                    user_exiting = get_user_model().objects.get(username=username)
+                except:
+                    user_existing = None
+
+                # verifier si le nom d'utilisateur et l'email existe
+                if user_existing:
+                    errors = "username ou email deja pris , essayez un autre"
                 else:
-                    errors = "Un utilisateur existe déjà avec ces coordonnées"
+
+                    try :
+
+                        # creation d'un nouvel utilisateur
+                        user = get_user_model().objects.create_user(
+                            username=username, first_name=nom, email=email, password=password)
+                        user.save()
+                    except :
+                        user = None
+                    # connection a la table client
+                    cl= Client.objects.create(user=user)
+                    cl.save()
+                    user = authenticate(request, username=username, password=password, email=email)
+                    if user is not None:
+                        login(request, user)
+                        return redirect("main_app:home")
+                    else:
+                        errors = "Un utilisateur existe déjà avec ces coordonnées"
 
             else:
                 errors = "Les deux mots de passe ne correspondent pas"

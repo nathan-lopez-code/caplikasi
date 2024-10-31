@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{% static "css/animated.css" %}">
     <link rel="stylesheet" href="{% static "css/owl.css" %}">
 
+    <link rel="shortcut icon" type="image/png" href='{% static "images/black-logo.png" %}'>
+
   </head>
 
 <body>
@@ -50,13 +52,12 @@
               <li><a href="{% url "main_app:home" %}" class="active">Acceuil</a></li>
               <li><a href="{% url 'main_app:tout_archive' %}">Archives</a></li>
               <li><a href="#footer">Contact</a></li>
-            {% if user %}
-              <li><a href="{% url 'main_app:logout_client' %}"><i class="fa fa-unlock"></i>Se deconnecter</a></li> 
-             {% endif %}
-              {% if is_archive %}
-              <li><div class="main-white-button"><a href="{% url 'archive_app:dashboard' %}"><i class="fa fa-dashboard"></i> Administre </a></div></li> 
+              <li><a href="{% url 'main_app:logout_client' %}"><i class="fa fa-unlock"></i>Se deconnecter</a></li>
+
+              {% if is_archiviste %}
+              <li><div class="main-white-button"><a href="{% url 'archive_app:dashboard' %}"><i class="fa fa-dashboard"></i> Administre </a></div></li>
               {% endif %}
-            </ul>        
+            </ul>
             <a class='menu-trigger'>
                 <span>Menu</span>
             </a>
@@ -95,7 +96,7 @@
                       {{ search_form.type }}
                   </fieldset>
               </div>
-              <div class="col-lg-3">                        
+              <div class="col-lg-3">
                   <fieldset>
                       <button class="main-button"><i class="fa fa-search"></i> Rechercher </button>
                   </fieldset>
@@ -147,13 +148,13 @@ Notre objectif est de faire de cette application un outil incontournable pour to
                       </div>
                     </div>
                     <div>
-                      <div class="thumb">                 
+                      <div class="thumb">
                         <span class="icon"><img src="{% static 'images/search-icon-02.png' %}" alt=""></span>
                         Nouveaux
                       </div>
                     </div>
                   </div>
-                </div> 
+                </div>
                 <div class="col-lg-9 align-self-center">
                   <ul class="nacc">
                     <li class="active">
@@ -198,7 +199,7 @@ Notre objectif est de faire de cette application un outil incontournable pour to
                       </div>
                     </li>
                   </ul>
-                </div>          
+                </div>
               </div>
             </div>
           </div>

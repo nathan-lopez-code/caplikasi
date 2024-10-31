@@ -55,7 +55,7 @@ class PatrimoineForm(forms.ModelForm):
     numero = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
     avenue = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     commune = forms.ChoiceField(choices=COMMUNE_LIKASI, widget=forms.Select(attrs={'class': 'form-control'}))
-    annee_contruction = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    annee_construction = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
     architecte = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label="Nom de l'architecte")
     etat_conservation = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}), choices=ETAT)
     affectation_actuel = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))

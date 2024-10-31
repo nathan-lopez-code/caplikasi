@@ -220,12 +220,14 @@
                                 <h4 class="header-title">Liste des archiviste</h4>
                                 <div class="cripto-live mt-5">
                                     <ul>
-                                        {% for a in list_archiviste %}
-                                        <li>
-                                            <div class="icon b">b</div> Bitcoin<span><i class="fa fa-long-arrow-up"></i>$876909.00</span></li>
-                                        {% empty %}
+                                        {% if list_archiviste %}
+                                            {% for a in list_archiviste %}
+                                            <li>
+                                                <div class="icon b ">p</div> Username : <span><i class="fa fa-long-arrow-up"></i>{{ a.user.username}}</span></li>
+                                            {% endfor %}
+                                        {% else %}
                                             <li><p>Vous etes le seul archiviste pour le moment</p></li>
-                                        {% endfor %}
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </div>

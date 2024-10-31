@@ -5,17 +5,24 @@ from django.urls import reverse
 
 from .forms import ArchiveForm, PatrimoineForm, FichierPlanForm
 from .models import Archivist, Archive, Fichier_plan, Patrimoine
-
+from django.contrib.auth import get_user_model
+from main_app.models import CustomUser
 
 @login_required(login_url='main_app:login_client')
 def dashboard(request):
+
     user = request.user
-    list_archiviste = Archivist.objects.exclude(user=user)
+
+    list_archiviste = Archivist.objects.all()
     nom_page = "tableau de bord"
+    m_archive = None
 
     archive_ancien = Archive.objects.filter(patrimoine__annee_construction__lte=2019)[5:]
     archive_nouveau = Archive.objects.filter(patrimoine__annee_construction__gte=2020)[5:]
-    m_archive = Archive.objects.filter(archiviste=Archivist.objects.get(user=user))
+    try :
+        m_archive = Archive.objects.filter(archiviste=Archivist.objects.get(user=user))
+    except:
+        pass
 
     context = {
         'user': user, 'nom_page': nom_page,
@@ -32,9 +39,11 @@ def dashboard(request):
 def register_archive(request):
 
     error = {}
+
+    user = request.user
     context = {
         'error': error,
-        'user': request.user,
+        'user': user,
     }
 
     if request.method == 'POST':
@@ -48,6 +57,11 @@ def register_archive(request):
             error.update(formPat.errors)
         if formFichier.errors:
             error.update(formFichier.errors)
+        else:
+            try :
+                archiviste = Archivist.objects.get(user=request.user)
+            except:
+                error = {f"{Archivist.objects.all()}":Archivist.objects.all()}
 
         if len(error) == 0:
             formPat.save()
@@ -55,7 +69,7 @@ def register_archive(request):
 
             archive = Archive.objects.create(
                 titre=formArchive.cleaned_data.get("titre"),
-                archiviste=Archivist.objects.get(user=request.user),
+                archiviste=archiviste,
                 historique=formArchive.cleaned_data.get("historique"),
                 patrimoine=patrimoine
             )
@@ -74,13 +88,13 @@ def register_archive(request):
         else:
 
             context = {
-                'user': request.user,
+                'user': user,
                 'formArchive': formArchive,
                 'formPat': formPat,
                 'formFichier': formFichier,
                 'error': error
             }
-            #return HttpResponse("error")
+            return HttpResponse("error")
     else:
         formArchive = ArchiveForm()
         formPat = PatrimoineForm()
@@ -113,6 +127,9 @@ def delete_archive(request, pk):
 
 
 def edit_archive(request, pk):
+
+    user = request.user
+
     archive_ = Archive.objects.get(pk=pk)
     patrimoine_ = archive_.patrimoine
     fichiers_ = Fichier_plan.objects.filter(patrimoine=patrimoine_)
@@ -129,25 +146,27 @@ def edit_archive(request, pk):
             error.update(formPat.errors)
         if formFichier.errors:
             error.update(formFichier.errors)
+        else:
+            try:
+                archiviste = Archivist.objects.get(user=user)
+            except:
+                error = {"erreur", "une erreur s'est produite"}
 
         if len(error) == 0:
             formPat.save()
             patrimoine = Patrimoine.objects.order_by('-pk').first()
 
-            archive = Archive.objects.update(
-                titre=formArchive.cleaned_data.get("titre"),
-                archiviste=Archivist.objects.get(user=request.user),
-                historique=formArchive.cleaned_data.get("historique"),
-                patrimoine=patrimoine
-            )
-            archive.save()
+            archive_.titre=formArchive.cleaned_data.get("titre")
+            archive_.archiviste=archiviste
+            archive_.historique=formArchive.cleaned_data.get("historique")
+            archive_.patrimoine=patrimoine
+
+            archive_.save()
 
             for fichier in formFichier.cleaned_data.get("fichier"):
-                plan = Fichier_plan.objects.update(
-                    patrimoine=patrimoine,
-                    fichier=fichier,
-                )
-                plan.save()
+                fichiers_.patrimoine=patrimoine
+                fichiers_.fichier=fichier
+                fichiers_.save()
 
                 # return HttpResponse("tout est oky")
             return redirect("archive_app:show_archive")
@@ -155,7 +174,7 @@ def edit_archive(request, pk):
         else:
 
             context = {
-                'user': request.user,
+                'user': user,
                 'formArchive': formArchive,
                 'formPat': formPat,
                 'formFichier': formFichier,
@@ -167,11 +186,11 @@ def edit_archive(request, pk):
             # return HttpResponse("error")
     else:
         formArchive = ArchiveForm()
-        formPat = PatrimoineForm()
+        formPat = PatrimoineForm(instance=patrimoine_)
         formFichier = FichierPlanForm()
 
         context = {
-            'user': request.user,
+            'user': user,
             'formArchive': formArchive,
             'formPat': formPat,
             'formFichier': formFichier,
