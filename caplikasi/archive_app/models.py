@@ -19,6 +19,12 @@ ETAT = [
 ]
 
 
+TYPE_CONTRUCTION = [
+    ("Ancienement", "Ancienement"),
+    ("Nouvellement", "Nouvellement"),
+]
+
+
 class Patrimoine(models.Model):
     # adresse
     avenue = models.CharField(max_length=200)
@@ -32,10 +38,13 @@ class Patrimoine(models.Model):
     etat_conservation = models.CharField(max_length=15, choices=ETAT)
 
     # Informations liées à l'utilisation
-    affectation_actuel = models.CharField(max_length=200, )
+    affectation_actuel = models.CharField(max_length=200, blank=True, null=True )
 
     # description textuel
-    observation = models.CharField(max_length=200, default="aucunne obeservation")
+    observation = models.CharField(max_length=200, default="aucunne obeservation", blank=True, null=True)
+
+    # type de construction
+    type_construction = models.CharField(max_length=20, choices=TYPE_CONTRUCTION, blank=True, null=True)
 
     # images & plan
     image = models.ImageField(upload_to="patrimoine/", blank=True, null=True)

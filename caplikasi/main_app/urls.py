@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, login_client, register_client, logout_client, archive_detail, recherche_archive, tout_archive
+from .views import home, login_client, register_client, logout_client, archive_detail, recherche_archive, tout_archive, contact, projets
 
 
 app_name = "main_app"
@@ -12,4 +12,6 @@ urlpatterns = [
     path('archive-liste/', tout_archive, name='tout_archive'),
     path('detail/archvie/<int:pk>/', archive_detail, name='archive_detail'),
     path('resultat/recherche/', recherche_archive, name='recherche_archive'),
+    path('contact/', contact, name='contact'),
+    path('projets/', projets, name='projets'),
 ]

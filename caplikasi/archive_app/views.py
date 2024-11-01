@@ -8,18 +8,18 @@ from .models import Archivist, Archive, Fichier_plan, Patrimoine
 from django.contrib.auth import get_user_model
 from main_app.models import CustomUser
 
+
 @login_required(login_url='main_app:login_client')
 def dashboard(request):
-
     user = request.user
 
     list_archiviste = Archivist.objects.all()
     nom_page = "tableau de bord"
     m_archive = None
 
-    archive_ancien = Archive.objects.filter(patrimoine__annee_construction__lte=2019)[5:]
-    archive_nouveau = Archive.objects.filter(patrimoine__annee_construction__gte=2020)[5:]
-    try :
+    archive_ancien = Archive.objects.filter(patrimoine__type_construction="Ancienement")[5:]
+    archive_nouveau = Archive.objects.filter(patrimoine__type_construction="Nouvellement")[5:]
+    try:
         m_archive = Archive.objects.filter(archiviste=Archivist.objects.get(user=user))
     except:
         pass
@@ -37,7 +37,6 @@ def dashboard(request):
 
 @login_required(login_url='main_app:login_client')
 def register_archive(request):
-
     error = {}
 
     user = request.user
@@ -58,10 +57,10 @@ def register_archive(request):
         if formFichier.errors:
             error.update(formFichier.errors)
         else:
-            try :
+            try:
                 archiviste = Archivist.objects.get(user=request.user)
             except:
-                error = {f"{Archivist.objects.all()}":Archivist.objects.all()}
+                error = {f"{Archivist.objects.all()}": Archivist.objects.all()}
 
         if len(error) == 0:
             formPat.save()
@@ -127,7 +126,6 @@ def delete_archive(request, pk):
 
 
 def edit_archive(request, pk):
-
     user = request.user
 
     archive_ = Archive.objects.get(pk=pk)
@@ -156,16 +154,16 @@ def edit_archive(request, pk):
             formPat.save()
             patrimoine = Patrimoine.objects.order_by('-pk').first()
 
-            archive_.titre=formArchive.cleaned_data.get("titre")
-            archive_.archiviste=archiviste
-            archive_.historique=formArchive.cleaned_data.get("historique")
-            archive_.patrimoine=patrimoine
+            archive_.titre = formArchive.cleaned_data.get("titre")
+            archive_.archiviste = archiviste
+            archive_.historique = formArchive.cleaned_data.get("historique")
+            archive_.patrimoine = patrimoine
 
             archive_.save()
 
             for fichier in formFichier.cleaned_data.get("fichier"):
-                fichiers_.patrimoine=patrimoine
-                fichiers_.fichier=fichier
+                fichiers_.patrimoine = patrimoine
+                fichiers_.fichier = fichier
                 fichiers_.save()
 
                 # return HttpResponse("tout est oky")

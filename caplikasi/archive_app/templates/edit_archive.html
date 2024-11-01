@@ -90,6 +90,11 @@
 
                                             </div>
                                             <div class="form-group">
+                                                <label for="exampleInputEmail1">{{ formPat.type_construction.label }}</label>
+                                               {{ formPat.type_construction }}
+
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="exampleInputEmail1">{{ formPat.architecte.label }} ~ ~ courante valeur : {{ patrimoine.architecte }}</label>
                                                {{ formPat.architecte }}
 
@@ -118,7 +123,7 @@
                                     <div class="card-body">
                                         <h4 class="header-title">Information sur les plans, televerser vos plans ici</h4>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">{{ formFichier.fichier.label }} ~ {% for f in fichiers %} {{ f.fichier.name }} {% endfor %}
+                                                <label for="exampleInputEmail1">{{ formFichier.fichier.label }} ~ {% for f in fichiers %} {{ f.fichier.name }} {% endfor %}</label>
 
                                                {{ formFichier.fichier }}
                                             </div>

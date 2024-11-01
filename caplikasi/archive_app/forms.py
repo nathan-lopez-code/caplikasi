@@ -1,5 +1,5 @@
 from django import forms
-from .models import COMMUNE_LIKASI, ETAT, Patrimoine
+from .models import COMMUNE_LIKASI, ETAT, Patrimoine, TYPE_CONTRUCTION
 
 
 COMMUNE_LIKASI_S = [
@@ -60,10 +60,14 @@ class PatrimoineForm(forms.ModelForm):
     etat_conservation = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}), choices=ETAT)
     affectation_actuel = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     observation = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    type_construction = forms.ChoiceField(
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        choices=TYPE_CONTRUCTION,
+        label="type de construction"
+    )
 
     image = forms.FileField(
         label='image du batiment',
-        #attrs={'class': 'my-file-input'}
     )
 
     #name="area" class="form-select" aria-label="Area" id="chooseCategory" onchange="this.form.click()"

@@ -13,8 +13,9 @@ from archive_app.forms import Reseach_form
 def home(request):
     client = Client.objects.filter(user=request.user)
     archivist = Archivist.objects.filter(user=request.user)
-    recent_archives = Archive.objects.all()[5:]
+    recent_archives = Archive.objects.all()[:5]
     search_form = Reseach_form()
+
 
     is_archiviste = False
     if client:
@@ -27,8 +28,30 @@ def home(request):
         request, 'home.html', context={
             'user': user, 'is_archiviste': is_archiviste,
             'recent_archives': recent_archives,
-            'search_form': search_form
+            'search_form': search_form,
+            'page_ac': "Accueil"
         })
+
+
+@login_required(login_url='main_app:login_client')
+def contact(request):
+    client = Client.objects.filter(user=request.user)
+    archivist = Archivist.objects.filter(user=request.user)
+
+    is_archiviste = False
+    if client:
+        user = client
+    else:
+        user = archivist
+        is_archiviste = True
+
+    context = {
+        'user': user,
+        'is_archiviste': is_archiviste,
+        'page_ac': "Contact"
+    }
+
+    return render(request, 'contact.html', context)
 
 
 def login_client(request):
@@ -85,16 +108,16 @@ def register_client(request):
                     errors = "username ou email deja pris , essayez un autre"
                 else:
 
-                    try :
+                    try:
 
                         # creation d'un nouvel utilisateur
                         user = get_user_model().objects.create_user(
                             username=username, first_name=nom, email=email, password=password)
                         user.save()
-                    except :
+                    except:
                         user = None
                     # connection a la table client
-                    cl= Client.objects.create(user=user)
+                    cl = Client.objects.create(user=user)
                     cl.save()
                     user = authenticate(request, username=username, password=password, email=email)
                     if user is not None:
@@ -147,8 +170,10 @@ def logout_client(request):
 def tout_archive(request):
     client = Client.objects.filter(user=request.user)
     archivist = Archivist.objects.filter(user=request.user)
-    archives_a = Archive.objects.filter(patrimoine__annee_construction__lte=2019)
-    archives_n = Archive.objects.filter(patrimoine__annee_construction__gte=2020)
+
+    archives_a = Archive.objects.filter(patrimoine__type_construction="Ancienement")[5:]
+    archives_n = Archive.objects.filter(patrimoine__type_construction="Nouvellement")[5:]
+
     is_archiviste = False
     search_form = Reseach_form()
 
@@ -163,11 +188,40 @@ def tout_archive(request):
         'archive_a': archives_a,
         'archive_n': archives_n,
         'is_archiviste': is_archiviste,
-        'search_form': search_form
+        'search_form': search_form,
+        'page_ac': "Archive"
 
     }
 
     return render(request, "all_archive.html", context)
+
+
+@login_required(login_url='main_app:login_client')
+def projets(request):
+    client = Client.objects.filter(user=request.user)
+    archivist = Archivist.objects.filter(user=request.user)
+    archives_a = Archive.objects.filter(patrimoine__type_construction="Ancienement")
+    archives_n = Archive.objects.filter(patrimoine__type_construction="Nouvellement")
+    is_archiviste = False
+    search_form = Reseach_form()
+
+    if client:
+        user = client
+    else:
+        user = archivist
+        is_archiviste = True
+
+    context = {
+        'user': user,
+        'is_archiviste': is_archiviste,
+        'search_form': search_form,
+        'page_ac': "Projet",
+        'archives_a': archives_a,
+        'archives_n': archives_n,
+
+    }
+
+    return render(request, "projets.html", context)
 
 
 @login_required(login_url='main_app:login_client')

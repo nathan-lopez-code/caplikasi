@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="{% static "css/owl.css" %}">
 
     <link rel="shortcut icon" type="image/png" href='{% static "images/black-logo.png" %}'>
-
+    {% block addition_style %}
+    {% endblock %}  
   </head>
 
 <body>
@@ -49,9 +50,10 @@
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
-              <li><a href="{% url "main_app:home" %}" class="active">Acceuil</a></li>
-              <li><a href="{% url 'main_app:tout_archive' %}">Archives</a></li>
-              <li><a href="#footer">Contact</a></li>
+              <li><a href="{% url "main_app:home" %}" class="{% if page_ac == "Accueil" %}active{% endif %}">Acceuil</a></li>
+              <li><a href="{% url 'main_app:tout_archive' %}" class="{% if page_ac == "Archive" %}active{% endif %}">Archive</a></li>
+              <li><a href="{% url 'main_app:projets' %}" class="{% if page_ac == "Projet" %}active{% endif %}">Projet</a></li>
+              <li><a href="{% url 'main_app:contact' %}" class="{% if page_ac == "Contact" %}active{% endif %}">Contact</a></li>
               <li><a href="{% url 'main_app:logout_client' %}"><i class="fa fa-unlock"></i>Se deconnecter</a></li>
 
               {% if is_archiviste %}
@@ -166,7 +168,7 @@ Notre objectif est de faire de cette application un outil incontournable pour to
                                 <h4>Edifices anciennement construits</h4>
                                  <p>Découvrez les édifices qui ont marqué notre paysage urbain. Au XXe siècle, ces constructions témoignent de l'évolution de l'architecture et de la société. Explorez leur histoire, leurs secrets et leur influence sur notre patrimoine.</p>
 
-                                <div class="main-white-button"><a href="#"><i class="fa fa-eye"></i> Decouvrez plus</a></div>
+                                <div class="main-white-button"><a href="{% url 'main_app:tout_archive' %}"><i class="fa fa-eye"></i> Decouvrez plus</a></div>
                               </div>
                             </div>
                             <div class="col-lg-7 align-self-center">
@@ -186,7 +188,7 @@ Notre objectif est de faire de cette application un outil incontournable pour to
                               <div class="left-text">
                                 <h4>Edifice nouvellement construits</h4>
                                 <p>Un héritage pour les générations futures enraciné dans l'histoire de Likasi, ces nouveaux édifices s'inscrient dans une tradition architecturale tout en répondant aux défis du XXIe siècle. Son architecture, à la fois classique et moderne, témoigne de l'évolution des pratiques constructives.</p>
-                                <div class="main-white-button"><a href="#"><i class="fa fa-eye"></i> Explore More</a></div>
+                                <div class="main-white-button"><a href="{% url 'main_app:tout_archive' %}"><i class="fa fa-eye"></i> Explore More</a></div>
                               </div>
                             </div>
                             <div class="col-lg-7 align-self-center">
@@ -222,6 +224,10 @@ Notre objectif est de faire de cette application un outil incontournable pour to
           <div class="owl-carousel owl-listing">
             {% for archive in recent_archives  %}
                 {% include "archive_card.html" %}
+            {% empty %}
+                <div class="card p-4 align-content-center justify-content-center">
+                    <p class="text-center bold">Aucune archive disponible pour le moment</p>
+                </div>
             {% endfor %}
           </div>
         </div>
@@ -229,7 +235,7 @@ Notre objectif est de faire de cette application un outil incontournable pour to
     </div>
   </div>
 {% endblock %}
-  {% include 'footer_main.html' %}
+{% include 'footer_main.html' %}
 
 
   <!-- Scripts -->
