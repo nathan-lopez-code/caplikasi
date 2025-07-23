@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-
 {% load static %}
 
 {% block bannier %}
@@ -26,86 +25,154 @@
 {% block main_content %}
     <div class="py-5 team4">
         <div class="container">
-        <div class="row justify-content-center mb-4">
-          <div class="col-md-7 text-center">
-            <h3 class="mb-3">Qui sommes-nous ?</h3>
-            <h6 class="subtitle">Nous sommes ravis de vous présenter l'équipe dévouée qui a contribué à la création de notre site d'archivage numérique. Chacun de nos membres a apporté ses compétences uniques et son expertise pour réaliser ce projet ambitieux.</h6>
-          </div>
-        </div>
-        <div class="row justify-content-center md-1">
-          <!-- column  -->
-          <div class="col-lg-3 mb-4">
-            <!-- Row -->
-            <div class="row">
-              <div class="col-md-12">
-                <img src="{% static 'images/contact_image/imag1.jpg' %}" width = "250px" height=250px alt="wrapkit" class="img-fluid rounded-circle myimage" />
-              </div>
-              <div class="col-md-12 text-center">
-                <div class="pt-2">
-                  <h5 class="mt-4 font-weight-medium mb-0">Grace Twite Kalenga</h5>
-                  <h6 class="subtitle mb-3">Professeur</h6>
-                  <p>Doctorant à l'université de Lubumbashi, Master en Sciences de l'ingénieur, option électronique Informatique, Ingénieur en Génie électrique et formateur en Electronique, Informatique, intelligence artificielle. Université de Lubumbashi</p>
-                  <ul class="list-inline">
-                      <li class="list-inline-item"><a href="https://wa.me/243" class="text-decoration-none d-block px-1"><i class="fa fa-whatsapp"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-instagram"></i></a></li>
-                  </ul>
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-7 text-center">
+                    <h3 class="mb-3">Qui sommes-nous ?</h3>
+                    <h6 class="subtitle">Nous sommes ravis de vous présenter l'équipe dévouée qui a contribué à la création de notre site d'archivage numérique. Chacun de nos membres a apporté ses compétences uniques et son expertise pour réaliser ce projet ambitieux.</h6>
                 </div>
-              </div>
             </div>
-            <!-- Row -->
-          </div>
-          <!-- column  -->
-          <!-- column  -->
-          <div class="col-lg-3 mb-4">
-            <!-- Row -->
-            <div class="row">
-              <div class="col-md-12">
-                <img src="{% static 'images/contact_image/imag2.jpg' %}" height=500px alt="wrapkit" class="img-fluid rounded-circle myimage" />
-              </div>
-              <div class="col-md-12 text-center">
-                <div class="pt-2">
-                  <h5 class="mt-4 font-weight-medium mb-0">Yannick SIKUZAN</h5>
-                  <h6 class="subtitle mb-3">Professeur</h6>
-                  <p> Docteur en Sciences agronomiques et spécialiste en questions liées à l’écologie du paysage urbain. Membre de l'Académie Royale des Sciences d'Outre-Mer, Doyen de la Faculté d'Architecture.</p>
-                  <ul class="list-inline">
-                    <li class="list-inline-item"><a href="https://wa.me/243" class="text-decoration-none d-block px-1"><i class="fa fa-whatsapp"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-instagram"></i></a></li>
-                  </ul>
+
+            <div id="teamCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#teamCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
-              </div>
-            </div>
-            <!-- Row -->
-          </div>
-          <!-- column  -->
-          <!-- column  -->
-          <div class="col-lg-3 mb-4">
-            <!-- Row -->
-            <div class="row">
-              <div class="col-md-12">
-                <img src="{% static 'images/contact_image/imag3.jpg' %}" width = "500px" height=500px alt="wrapkit" class="img-fluid rounded-circle myimage" />
-              </div>
-              <div class="col-md-12 text-center">
-                <div class="pt-2">
-                  <h5 class="mt-4 font-weight-medium mb-0">lorence KAMPEMBA MUJINGA</h5>
-                  <h6 class="subtitle mb-3">Professeur</h6>
-                  <p>Docteur en Sciences Agronomiques, Faculté de sciencesAgronomiques. Vice-Doyenne en charge du tutorat à la faculté d'Architecture. spécialiste en alimentation des animaux.</p>
-                  <ul class="list-inline">
-                    <li class="list-inline-item"><a href="https://wa.me/243" class="text-decoration-none d-block px-1"><i class="fa fa-whatsapp"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-instagram"></i></a></li>
-                  </ul>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3 mb-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <img src="{% static 'images/contact_image/imag1.jpg' %}" width="250px" height="250px" alt="Grace Twite Kalenga" class="img-fluid rounded-circle myimage" />
+                                    </div>
+                                    <div class="col-md-12 text-center">
+                                        <div class="pt-2">
+                                            <h5 class="mt-4 font-weight-medium mb-0">Grace Twite Kalenga</h5>
+                                            <h6 class="subtitle mb-3">Chargé des Cours</h6>
+                                            <p>Doctorant à l'université de Lubumbashi, Master en Sciences de l'ingénieur, option électronique Informatique, Ingénieur en Génie électrique et formateur en Electronique, Informatique, intelligence artificielle. Master complémentaire en architecture située</p>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item"><a href="https://wa.me/243" class="text-decoration-none d-block px-1"><i class="fa fa-whatsapp"></i></a></li>
+                                                <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-facebook"></i></a></li>
+                                                <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-instagram"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3 mb-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <img src="{% static 'images/contact_image/imag2.jpg' %}" height="500px" alt="Yannick SIKUZAN" class="img-fluid rounded-circle myimage" />
+                                    </div>
+                                    <div class="col-md-12 text-center">
+                                        <div class="pt-2">
+                                            <h5 class="mt-4 font-weight-medium mb-0">Yannick SIKUZAN</h5>
+                                            <h6 class="subtitle mb-3">Professeur</h6>
+                                            <p>Docteur en Sciences agronomiques et spécialiste en questions liées à l’écologie du paysage urbain. Membre de l'Académie Royale des Sciences d'Outre-Mer, Doyen de la Faculté d'Architecture.</p>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item"><a href="https://wa.me/243" class="text-decoration-none d-block px-1"><i class="fa fa-whatsapp"></i></a></li>
+                                                <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-facebook"></i></a></li>
+                                                <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-instagram"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3 mb-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <img src="{% static 'images/default_profile.png' %}" height="500px" alt="Yannick SIKUZAN" class="img-fluid rounded-circle myimage" />
+                                    </div>
+                                    <div class="col-md-12 text-center">
+                                        <div class="pt-2">
+                                            <h5 class="mt-4 font-weight-medium mb-0">Sylvestre CABALA KALEBA</h5>
+                                            <h6 class="subtitle mb-3">Professeur</h6>
+                                            <p> Docteur en Sciences agronomiques et spécialiste en questions liées à l’écologie du paysage urbain et télédétection. Vice Doyen Chargé de l'enseignement, Faculté des Sciences Agronomiques. Directeur du Mémoire.</p>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item"><a href="https://wa.me/243" class="text-decoration-none d-block px-1"><i class="fa fa-whatsapp"></i></a></li>
+                                                <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-facebook"></i></a></li>
+                                                <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-instagram"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3 mb-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <img src="{% static 'images/contact_image/imag3.jpg' %}" width="500px" height="500px" alt="Lorence KAMPEMBA MUJINGA" class="img-fluid rounded-circle myimage" />
+                                    </div>
+                                    <div class="col-md-12 text-center">
+                                        <div class="pt-2">
+                                            <h5 class="mt-4 font-weight-medium mb-0">Lorence KAMPEMBA MUJINGA</h5>
+                                            <h6 class="subtitle mb-3">Professeur</h6>
+                                            <p>Docteur en Sciences Agronomiques, Faculté de sciences Agronomiques. Vice-Doyenne en charge du tutorat à la faculté d'Architecture. spécialiste en alimentation des animaux.</p>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item"><a href="https://wa.me/243" class="text-decoration-none d-block px-1"><i class="fa fa-whatsapp"></i></a></li>
+                                                <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-facebook"></i></a></li>
+                                                <li class="list-inline-item"><a href="#" class="text-decoration-none d-block px-1"><i class="fa fa-instagram"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon custom-carousel-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Précédent</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon custom-carousel-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Suivant</span>
+                </button>
             </div>
-            <!-- Row -->
-          </div>
-          <!-- column  -->
-          <!-- column  -->
-        </div>
-        </div>
+            </div>
     </div>
+
+    <style>
+        .custom-carousel-icon {
+            filter: invert(20%) sepia(80%) saturate(2000%) hue-rotate(200deg) brightness(80%) contrast(100%); /* Rend l'icône bleue */
+            /* Ou si vous voulez une couleur RGB/Hex spécifique et si l'icône est un SVG direct */
+            /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%230000FF'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e"); */
+            /* Si vous voulez une icône plus grande ou décalée */
+            /* width: 3rem; */
+            /* height: 3rem; */
+        }
+
+        /* Pour les boutons eux-mêmes si vous voulez changer leur couleur de fond ou bordure */
+        .carousel-control-prev,
+        .carousel-control-next {
+            background-color: rgba(0, 0, 0, 0); /* Rendre le fond transparent, ou une couleur */
+            border: none; /* Supprimer la bordure par défaut */
+            opacity: 0.8; /* Rendre légèrement transparent quand inactif */
+        }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            opacity: 1; /* Pleine opacité au survol */
+        }
+    </style>
+
 {% endblock %}
 
 

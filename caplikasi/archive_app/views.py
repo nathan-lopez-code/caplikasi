@@ -6,16 +6,21 @@ from django.urls import reverse
 from .forms import ArchiveForm, PatrimoineForm, FichierPlanForm
 from .models import Archivist, Archive, Fichier_plan, Patrimoine
 from django.contrib.auth import get_user_model
-from main_app.models import CustomUser
+from main_app.models import CustomUser, Client
 
 
 @login_required(login_url='main_app:login_client')
 def dashboard(request):
     user = request.user
 
+    if Client.objects.filter(user=user).exists():
+        return redirect('main_app:home')
+
     list_archiviste = Archivist.objects.all()
     nom_page = "tableau de bord"
     m_archive = None
+
+
 
     archive_ancien = Archive.objects.filter(patrimoine__type_construction="Ancienement")[5:]
     archive_nouveau = Archive.objects.filter(patrimoine__type_construction="Nouvellement")[5:]
@@ -37,9 +42,12 @@ def dashboard(request):
 
 @login_required(login_url='main_app:login_client')
 def register_archive(request):
-    error = {}
-
     user = request.user
+    if Client.objects.filter(user=user).exists():
+        return redirect('main_app:home')
+
+
+    error = {}
     context = {
         'error': error,
         'user': user,
@@ -112,6 +120,8 @@ def register_archive(request):
 @login_required(login_url='main_app:login_client')
 def delete_archive(request, pk):
     user = request.user
+    if Client.objects.filter(user=user).exists():
+        return redirect('main_app:home')
     archive_ = Archive.objects.get(pk=pk)
     patrimoine_ = archive_.patrimoine
     fichiers_ = Fichier_plan.objects.filter(patrimoine=patrimoine_)
@@ -127,6 +137,8 @@ def delete_archive(request, pk):
 
 def edit_archive(request, pk):
     user = request.user
+    if Client.objects.filter(user=user).exists():
+        return redirect('main_app:home')
 
     archive_ = Archive.objects.get(pk=pk)
     patrimoine_ = archive_.patrimoine
@@ -203,6 +215,8 @@ def edit_archive(request, pk):
 @login_required(login_url='main_app:login_client')
 def show_archive(request):
     user = request.user
+    if Client.objects.filter(user=user).exists():
+        return redirect('main_app:home')
     archives = Archive.objects.all()
 
     context = {

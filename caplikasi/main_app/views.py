@@ -11,6 +11,7 @@ from archive_app.forms import Reseach_form
 
 @login_required(login_url='main_app:login_client')
 def home(request):
+
     client = Client.objects.filter(user=request.user)
     archivist = Archivist.objects.filter(user=request.user)
     recent_archives = Archive.objects.all()[:5]
@@ -35,6 +36,7 @@ def home(request):
 
 @login_required(login_url='main_app:login_client')
 def contact(request):
+
     client = Client.objects.filter(user=request.user)
     archivist = Archivist.objects.filter(user=request.user)
 
@@ -55,19 +57,16 @@ def contact(request):
 
 
 def login_client(request):
+
     if request.method == 'POST':
         form = Login_form(request.POST)
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
 
-            try:
+            user = authenticate(request, username=username, password=password)
 
-                user = get_user_model().objects.get(username=username, password=password)
-            except:
-                user = None
-
-            if user is not None:
+            if user:
                 login(request, user)
                 if Client.objects.filter(user=user).exists():
                     # diriger vers la page d'accueil
@@ -87,6 +86,7 @@ def login_client(request):
 
 
 def register_client(request):
+
     if request.method == 'POST':
         form = Client_register_form(request.POST)
         if form.is_valid():
@@ -98,39 +98,30 @@ def register_client(request):
 
             if compare_password(password, confirmation):
 
-                try:
-                    user_existing = get_user_model().objects.get(username=username)
-                except:
-                    user_existing = None
-
-                # verifier si le nom d'utilisateur et l'email existe
-                if user_existing:
-                    errors = "username ou email deja pris , essayez un autre"
+                if get_user_model().objects.filter(username=username).exists():
+                    errors = "username deja pris , essayez un autre"
                 else:
 
                     try:
 
                         # creation d'un nouvel utilisateur
-                        user = get_user_model().objects.create_user(
+                        new_user = get_user_model().objects.create_user(
                             username=username, first_name=nom, email=email, password=password)
-                        user.save()
-                    except:
-                        user = None
-                    # connection a la table client
-                    cl = Client.objects.create(user=user)
-                    cl.save()
-                    user = authenticate(request, username=username, password=password, email=email)
-                    if user is not None:
+                        new_user.save()
+                        cl = Client.objects.create(user=new_user)
+                        cl.save()
+                        # authentificaiton du nouvel utilisateur
+                        user = authenticate(request, username=username, password=password, email=email)
                         login(request, user)
                         return redirect("main_app:home")
-                    else:
-                        errors = "Un utilisateur existe déjà avec ces coordonnées"
+                    except:
+                        errors = "une erreur s'est produit , veillez essayer plus tard."
+
+                    return render(request, 'register_simple.html', context={"form": form, 'errors': errors})
 
             else:
                 errors = "Les deux mots de passe ne correspondent pas"
-
-        else:
-            errors = form.errors
+                return render(request, 'register_simple.html', context={"form": form, 'errors': errors})
     else:
         errors = False
         form = Client_register_form()
@@ -140,6 +131,7 @@ def register_client(request):
 
 @login_required(login_url='main_app:login_client')
 def archive_detail(request, pk):
+
     client = Client.objects.filter(user=request.user)
     archivist = Archivist.objects.filter(user=request.user)
     archive = Archive.objects.get(pk=pk)
@@ -168,6 +160,7 @@ def logout_client(request):
 
 @login_required(login_url='main_app:login_client')
 def tout_archive(request):
+
     client = Client.objects.filter(user=request.user)
     archivist = Archivist.objects.filter(user=request.user)
 
@@ -198,6 +191,7 @@ def tout_archive(request):
 
 @login_required(login_url='main_app:login_client')
 def projets(request):
+
     client = Client.objects.filter(user=request.user)
     archivist = Archivist.objects.filter(user=request.user)
     archives_a = Archive.objects.filter(patrimoine__type_construction="Ancienement")
@@ -226,6 +220,7 @@ def projets(request):
 
 @login_required(login_url='main_app:login_client')
 def recherche_archive(request):
+
     TTC = "toutes les communes"
     TT = "Tout type"
     NC = "Nouvellement construit"
