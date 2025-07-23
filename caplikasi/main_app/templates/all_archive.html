@@ -62,13 +62,13 @@
                       </div>
                     </div>
                     <div>
-                      <div class="thumb">                 
+                      <div class="thumb">
                         <span class="icon"><img src="{% static 'images/search-icon-02.png' %}" alt=""></span>
                         nouveau
                       </div>
                     </div>
                   </div>
-                </div> 
+                </div>
                 <div class="col-lg-9">
                   <ul class="nacc">
                     <li class="active">
@@ -79,6 +79,7 @@
                                 <div class="item">
                                   <div class="row">
                                     {% for aa in archive_a %}
+                                    {% if aa.patrimoine.image %}
                                     <div class="col-lg-12">
                                       <div class="listing-item">
                                         <div class="left-image">
@@ -98,6 +99,7 @@
                                         </div>
                                       </div>
                                     </div>
+                                    {% endif %}
                                     {% empty %}
                                       <div class="card justify-content-center align-content-center">
 
@@ -117,7 +119,8 @@
                           <div class="owl-carousel owl-listing">
                                 <div class="item">
                                   <div class="row">
-                                    {% for an in archive_m %}
+                                    {% for an in archive_n %}
+                                    {% if an.patrimoine.image %}
                                     <div class="col-lg-12">
                                       <div class="listing-item">
                                         <div class="left-image">
@@ -137,6 +140,7 @@
                                         </div>
                                       </div>
                                     </div>
+                                    {% endif %}
                                     {% empty %}
                                       <div class="card justify-content-center align-content-center">
 
@@ -151,14 +155,14 @@
                       </div>
                     </li>
                   </ul>
-                  
-                </div>          
+
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>    
-    
+  </div>
+
 {% endblock %}

@@ -99,7 +99,7 @@ def register_client(request):
             if compare_password(password, confirmation):
 
                 try:
-                    user_exiting = get_user_model().objects.get(username=username)
+                    user_existing = get_user_model().objects.get(username=username)
                 except:
                     user_existing = None
 
@@ -171,8 +171,8 @@ def tout_archive(request):
     client = Client.objects.filter(user=request.user)
     archivist = Archivist.objects.filter(user=request.user)
 
-    archives_a = Archive.objects.filter(patrimoine__type_construction="Ancienement")[5:]
-    archives_n = Archive.objects.filter(patrimoine__type_construction="Nouvellement")[5:]
+    archives_a = Archive.objects.filter(patrimoine__type_construction="Ancienement")
+    archives_n = Archive.objects.filter(patrimoine__type_construction="Nouvellement")
 
     is_archiviste = False
     search_form = Reseach_form()
